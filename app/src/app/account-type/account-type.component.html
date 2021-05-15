@@ -1,9 +1,11 @@
 <div>
   <div class="mb-3 col-md-4 row">
-  <label class="col-sm-4 col-form-label">Select Type</label>
-  <select class="form-select col-sm-10">
-    <option>
-    </option>
-  </select>
+    <label class="col-sm-4 col-form-label">Select Type</label>
+    <select class="form-select col-sm-10">
+      <!-- <option hidden disabled selected value> -- select an accountype-- </option> -->
+      <option hidden disabled selected value></option>
+      <option *ngFor="let accountType of accountTypes" value="accountType.id"> {{accountType.name}}
+      </option>
+    </select>
   </div>
 </div>

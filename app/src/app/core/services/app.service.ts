@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError } from 'rxjs/operators';
@@ -19,8 +19,12 @@ export class AppService {
 
   post(path: string, body: Object = {}): Observable<any> {
     this.logger.trace("--> ApiService.post()");
-    return this.http.post(path, JSON.stringify(body),).pipe(catchError(this.handleErrors));
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post(path, JSON.stringify(body),{headers:headers}).pipe(catchError(this.handleErrors));
   }
+  
   private handleErrors(error: any) {
     this.logger.trace(`Error Code: ${error.status} and Error Message: ${error.message}`)
     return throwError(error.message);
