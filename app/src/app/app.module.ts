@@ -7,7 +7,8 @@ import { AccountComponent } from './account/account.component';
 import { AccountTypeComponent } from './account-type/account-type.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NewAccountComponent } from './new-account/new-account.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,10 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    CoreModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
