@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AccountService, LoggerService } from '../core/services';
 import { AccountRequest } from '../models/accountRequest';
 
@@ -15,7 +16,7 @@ export class NewAccountComponent implements OnInit {
 
   public accountForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, private accountService: AccountService, private logger: LoggerService) {
+  constructor(private formBuilder: FormBuilder, private accountService: AccountService, private logger: LoggerService,private router: Router) {
   }
 
   ngOnInit(): void {
@@ -35,10 +36,12 @@ export class NewAccountComponent implements OnInit {
   }
 
   private creatNewAlbum(request: AccountRequest) {
-    this.accountService.creatAccount(request)
+    this.accountService.createAccount(request)
       .subscribe(
         {
           next: (result: any) => {
+            // TO DO : Display success - SuccessDialogComponent
+            this.router.navigate(['/accounts']);
 
             console.log(result);
           },

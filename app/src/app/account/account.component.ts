@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { AccountTypeModel } from '../account-type/account-type.model';
 import { AccountService, LoggerService } from '../core/services';
 import { AccountType } from '../models/constants';
 import { AccountGridDataModel } from './account-grid-data.model';
@@ -17,21 +19,33 @@ export class AccountComponent implements OnInit {
   - Filter Accounts based on the Account Type
    */
 
+  public accounts: AccountGridDataModel[];
+  public filterAccounts: AccountGridDataModel[];
+  subscription: Subscription;
+  selectedAccountType: AccountTypeModel | null;
+
   constructor(private accountService: AccountService, private logger: LoggerService, private router: Router) {
   }
 
-  public accounts: AccountGridDataModel[];
-
   ngOnInit(): void {
+    this.subscription = this.accountService.selectedAccountTypeChanges$
+      .subscribe(
+        selectedAccountType => {
+          this.selectedAccountType = selectedAccountType
+          if (this.accounts) {
+            this.filterAccounts = this.accounts.filter(item => item.typeId === this.selectedAccountType.id);
+          }
+        }
+      );
     this.loadAccounts();
   }
-
   private loadAccounts() {
     this.accountService.fetchAccounts()
       .subscribe(
         {
           next: (result: AccountModel[]) => {
             this.accounts = this.MapToAccountGridDataModel(result);
+            this.filterAccounts = this.accounts;
           },
           error: (error: any) => {
             this.logger.error("Failed to Load Accounts" + error);
@@ -63,6 +77,10 @@ export class AccountComponent implements OnInit {
       balance: x.balance,
       address: x.address
     }) as AccountGridDataModel)
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

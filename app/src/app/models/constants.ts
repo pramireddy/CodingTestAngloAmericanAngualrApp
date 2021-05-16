@@ -1,5 +1,5 @@
 export const AccountType = new Map<number, string>([
-    [1, "Silver"],
-    [2, "Bronze"],
+    [1, "Bronze"],
+    [2, "Silver"],
     [3, "Gold"],
 ]);
