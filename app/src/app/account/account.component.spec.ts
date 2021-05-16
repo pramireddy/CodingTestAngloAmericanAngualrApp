@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule  } from '@angular/common/http/testing';
+import {HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AccountComponent } from './account.component';
 
@@ -8,6 +12,12 @@ describe('AccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[
+        RouterTestingModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        HttpClientModule
+      ],
       declarations: [ AccountComponent ]
     })
     .compileComponents();
