@@ -35,8 +35,10 @@ export class AccountComponent implements OnInit {
           }
         }
       );
+
     this.loadAccounts();
   }
+
   private loadAccounts() {
     this.accountService.fetchAccounts()
       .subscribe(

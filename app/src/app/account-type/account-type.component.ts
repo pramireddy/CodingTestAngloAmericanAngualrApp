@@ -26,6 +26,7 @@ export class AccountTypeComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.accountService.selectedAccountTypeChanges$
       .subscribe(selectedAccountType => this.selectedAccountType = selectedAccountType)
+      
     this.loadAccountTypes();
   }
 
