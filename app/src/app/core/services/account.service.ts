@@ -11,12 +11,12 @@ import { AccountRequest } from 'src/app/models/accountRequest';
 })
 export class AccountService {
 
-  private selectedAccountTypeSource = new BehaviorSubject<AccountTypeModel | null>(null);
+  private selectedAccountTypeSource = new BehaviorSubject<number | null>(null);
   selectedAccountTypeChanges$ = this.selectedAccountTypeSource.asObservable();
 
   constructor(private logger: LoggerService, private apiService: AppService) { }
 
-  changeSelectedAccountType(selectedAccountType: AccountTypeModel | null) {
+  changeSelectedAccountType(selectedAccountType: number | null) {
     this.selectedAccountTypeSource.next(selectedAccountType);
   }
 

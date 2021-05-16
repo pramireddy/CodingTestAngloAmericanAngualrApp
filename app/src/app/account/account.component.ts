@@ -13,16 +13,10 @@ import { AccountModel } from './account.model';
 })
 export class AccountComponent implements OnInit {
 
-  /* TODO:
-  - Load Accounts from the REST Api
-  - Display Accounts in the HTML Table
-  - Filter Accounts based on the Account Type
-   */
-
   public accounts: AccountGridDataModel[];
   public filterAccounts: AccountGridDataModel[];
   subscription: Subscription;
-  selectedAccountType: AccountTypeModel | null;
+  selectedAccountType: number | null;
 
   constructor(private accountService: AccountService, private logger: LoggerService, private router: Router) {
   }
@@ -33,7 +27,11 @@ export class AccountComponent implements OnInit {
         selectedAccountType => {
           this.selectedAccountType = selectedAccountType
           if (this.accounts) {
-            this.filterAccounts = this.accounts.filter(item => item.typeId === this.selectedAccountType.id);
+            if (this.selectedAccountType === 0) {
+              this.filterAccounts = this.accounts
+            } else {
+              this.filterAccounts = this.accounts.filter(item => item.typeId === this.selectedAccountType);
+            }
           }
         }
       );

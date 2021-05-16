@@ -16,7 +16,7 @@ export class AccountTypeComponent implements OnInit {
    */
 
   subscription: Subscription;
-  selectedAccountType: AccountTypeModel | null;
+  selectedAccountType: number | null;
 
   constructor(private accountService: AccountService, private logger: LoggerService) {
   }
@@ -30,12 +30,13 @@ export class AccountTypeComponent implements OnInit {
   }
 
   filterForAccountType(filterVal: number) {
-    if (Number(filterVal) !== 0) {
-      var selectedAccountType = this.accountTypes.filter(x => x.id === Number(filterVal))[0];
-      this.accountService.changeSelectedAccountType(selectedAccountType);
+    // if (Number(filterVal) !== 0) {
+    //   var selectedAccountType = this.accountTypes.filter(x => x.id === Number(filterVal))[0];
+    //   this.accountService.changeSelectedAccountType(filterVal);
 
-      console.log(selectedAccountType);
-    }
+    //   console.log(selectedAccountType);
+    // }
+    this.accountService.changeSelectedAccountType(Number(filterVal));
   }
 
   private loadAccountTypes() {
